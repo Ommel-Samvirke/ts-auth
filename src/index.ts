@@ -4,8 +4,6 @@ import cookieParser = require('cookie-parser');
 import cors = require('cors');
 import { verify } from 'jsonwebtoken';
 import { hash, compare } from 'bcrypt';
-import { fakeDB } from './fakeDB';
-import { reportError, getErrorMessage } from './error-handler';
 
 const app = express();
 
