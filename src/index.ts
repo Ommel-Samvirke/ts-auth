@@ -1,11 +1,34 @@
 import express from 'express';
+import 'dotenv/config';
+import cookieParser = require('cookie-parser');
+import cors = require('cors');
+import { verify } from 'jsonwebtoken';
+import { hash, compare } from 'bcrypt';
+import { fakeDB } from './fakeDB';
+import { reportError, getErrorMessage } from './error-handler';
+
 const app = express();
-const port = 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+// Middleware
+app.use(cookieParser());
 
-app.listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  })
+);
+
+app.use(express.json());
+
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+
+app.listen(process.env.PORT, () => {
+  return console.log(
+    `Express is listening at http://localhost:${process.env.PORT}`
+  );
 });
